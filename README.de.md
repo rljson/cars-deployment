@@ -1,0 +1,57 @@
+<!--
+@license
+Copyright (c) rljson
+
+Use of this source code is governed by terms that can be
+found in the LICENSE file in the root of this package.
+-->
+
+# cars-deployment
+
+[English](README.md) | Deutsch
+
+Was im Kubernetes-Cluster der Cars-Anwendung läuft, einer Beispiel-App auf
+Rljson: Manifeste, Helm-Charts und die ArgoCD-Applications, die den Cluster
+mit diesem Repo synchron halten.
+
+## Motivation
+
+- Der Zustand des Clusters ist in Git beschrieben; ArgoCD wendet jede
+  gemergte Änderung an und macht Abweichungen rückgängig
+- Ein neues Image erreicht den Cluster durch eine gemergte Änderung seiner
+  `image-tag.yaml`, durch nichts sonst
+- Die Azure-Ressourcen liegen in
+  [cars-infra](https://github.com/rljson/cars-infra); ArgoCD beobachtet nur
+  dieses Repo
+
+## Aufbau
+
+| Ordner        | Inhalt                                                                          |
+| ------------- | ------------------------------------------------------------------------------- |
+| `k8s/base`    | Einfache Manifeste, von Hand angewendet, bevor ArgoCD läuft                     |
+| `k8s/demo`    | Änderungen der Umgebung `demo` an den Manifesten in `k8s/base`                  |
+| `charts`      | Ein Helm-Chart je Workload: `values.yaml`, `demo-values.yaml`, `image-tag.yaml` |
+| `argocd`      | Werte der ArgoCD-Installation                                                   |
+| `argocd/apps` | App of Apps: `root.yaml` und eine Application je Workload und Umgebung          |
+
+Zwei Workloads laufen im Namespace `demo`: `cars-ui`, das Frontend als
+statische Dateien, und `cars-server`, der Server hinter `/api`.
+
+## Verwendung
+
+Zuerst wird ein Image in der Registry gebaut; dann wird sein Tag in
+`charts/<workload>/image-tag.yaml` per Pull Request geändert. Nach dem
+Merge synchronisiert ArgoCD ihn in den Cluster.
+
+```bash
+az acr build --registry <registry> --image <workload>:<tag> .
+```
+
+## Grenzen
+
+- Keine CI: ein Betreiber baut Images und ändert Tags von Hand
+- Nur eine Umgebung, `demo`
+
+## Stand
+
+Nur die Struktur; noch ist kein Workload beschrieben.
