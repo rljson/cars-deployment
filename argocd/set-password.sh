@@ -22,7 +22,8 @@ read -r -s -p "Repeat: " repeat; echo
 [ "$password" = "$repeat" ] || { echo "Passwords differ" >&2; exit 1; }
 [ "${#password}" -ge 12 ] || { echo "At least 12 characters" >&2; exit 1; }
 
-hash="$(htpasswd -nbBC 10 "" "$password" | tr -d ':\n' | sed 's/^\$2y/$2a/')"
+# Through stdin, so the password never shows up in the process list.
+hash="$(printf '%s' "$password" | htpasswd -niBC 10 "" | tr -d ':\n' | sed 's/^\$2y/$2a/')"
 mtime="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 kubectl -n "$namespace" patch secret argocd-secret --type merge -p \
