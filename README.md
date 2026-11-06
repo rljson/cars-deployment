@@ -34,8 +34,10 @@ that keep the cluster in sync with this repo.
 | `argocd`      | Values of the ArgoCD installation                                                |
 | `argocd/apps` | App of apps: `root.yaml` and one application per workload and environment        |
 
-Two workloads run in the namespace `demo`: `cars-ui`, the front end as
-static files, and `cars-server`, the server behind `/api`.
+Three workloads run in the namespace `demo`, each on its own and reached
+over HTTP only: `cars-ui`, the front end as static files, which forwards
+`/api` to `cars-bff`, the backend for frontend, which asks `cars-master`,
+the master data server.
 
 ## Usage
 

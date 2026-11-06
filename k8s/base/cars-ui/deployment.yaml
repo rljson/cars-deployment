@@ -4,7 +4,7 @@
 # Use of this source code is governed by terms that can be
 # found in the LICENSE file in the root of this package.
 
-# The page of cars, served by nginx; forwards /api to cars-server.
+# The page of cars, served by nginx; forwards /api to cars-bff.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +27,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: cars-ui
-          image: crcarsdemo.azurecr.io/cars-ui:0.0.1-d14db4e
+          image: crcarsdemo.azurecr.io/cars-ui:0.0.1-4901b57
           ports:
             - name: http
               containerPort: 8080

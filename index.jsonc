@@ -13,7 +13,7 @@
 
   // 1-3 bullet points: the problem space.
   "domain": [
-    "Kubernetes workloads cars-ui and cars-server in namespace demo",
+    "Kubernetes workloads cars-ui, cars-bff and cars-master in namespace demo",
     "Helm charts, value files values.yaml → demo-values.yaml → image-tag.yaml",
     "ArgoCD app of apps, auto-sync from git"
   ],

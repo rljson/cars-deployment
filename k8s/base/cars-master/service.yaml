@@ -7,12 +7,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cars-server
+  name: cars-master
   labels:
-    app: cars-server
+    app: cars-master
 spec:
   selector:
-    app: cars-server
+    app: cars-master
   ports:
     - name: http
       port: 3000

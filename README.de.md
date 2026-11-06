@@ -34,8 +34,10 @@ mit diesem Repo synchron halten.
 | `argocd`      | Werte der ArgoCD-Installation                                                   |
 | `argocd/apps` | App of Apps: `root.yaml` und eine Application je Workload und Umgebung          |
 
-Zwei Workloads laufen im Namespace `demo`: `cars-ui`, das Frontend als
-statische Dateien, und `cars-server`, der Server hinter `/api`.
+Drei Workloads laufen im Namespace `demo`, jeder für sich und nur über
+HTTP erreichbar: `cars-ui`, das Frontend als statische Dateien, leitet
+`/api` an `cars-bff` weiter, das Backend for Frontend, das `cars-master`
+fragt, den Stammdaten-Server.
 
 ## Verwendung
 
