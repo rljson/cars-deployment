@@ -1,0 +1,51 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+# The page of cars, served by nginx; forwards /api to cars-bff.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cars-ui
+  labels:
+    app: cars-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cars-ui
+  template:
+    metadata:
+      labels:
+        app: cars-ui
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: cars-ui
+          image: crcarsdemo.azurecr.io/cars-ui:0.0.1-4901b57
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ['ALL']
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 64Mi
