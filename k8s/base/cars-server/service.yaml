@@ -1,0 +1,19 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cars-server
+  labels:
+    app: cars-server
+spec:
+  selector:
+    app: cars-server
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http

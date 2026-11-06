@@ -1,0 +1,52 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+# The backend for frontend of cars on Node; answers /api and /health.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cars-server
+  labels:
+    app: cars-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cars-server
+  template:
+    metadata:
+      labels:
+        app: cars-server
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: cars-server
+          image: crcarsdemo.azurecr.io/cars-server:0.0.1-5e458e5
+          ports:
+            - name: http
+              containerPort: 3000
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ['ALL']
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
