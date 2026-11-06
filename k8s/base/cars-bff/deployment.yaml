@@ -27,7 +27,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: cars-bff
-          image: crcarsdemo.azurecr.io/cars-bff:0.0.1-0005724
+          image: crcarsdemo.azurecr.io/cars-bff:0.0.1-b3f83a2
           env:
             - name: MASTER_URL
               value: http://cars-master:3000
