@@ -11,8 +11,7 @@ found in the LICENSE file in the root of this package.
 [English](README.md) | Deutsch
 
 Was im Kubernetes-Cluster der Cars-Anwendung läuft, einer Beispiel-App auf
-Rljson: Manifeste, Helm-Charts und die ArgoCD-Applications, die den Cluster
-mit diesem Repo synchron halten.
+Rljson: Helm-Charts und die ArgoCD-Applications, die den Cluster mit diesem Repo synchron halten.
 
 ## Motivation
 
@@ -28,8 +27,6 @@ mit diesem Repo synchron halten.
 
 | Ordner        | Inhalt                                                                          |
 | ------------- | ------------------------------------------------------------------------------- |
-| `k8s/base`    | Einfache Manifeste, von Hand angewendet, bevor ArgoCD läuft                     |
-| `k8s/demo`    | Änderungen der Umgebung `demo` an den Manifesten in `k8s/base`                  |
 | `charts`      | Ein Helm-Chart je Workload: `values.yaml`, `demo-values.yaml`, `image-tag.yaml` |
 | `argocd`      | Werte der ArgoCD-Installation                                                   |
 | `argocd/apps` | App of Apps: `root.yaml` und eine Application je Workload und Umgebung          |
@@ -61,6 +58,14 @@ argocd/set-password.sh <konto>
 argocd/ui.sh
 ```
 
+Die App of Apps wird einmal von Hand angewendet; danach synchronisiert
+ArgoCD jede Application in `argocd/apps` von `main`, mit Auto-Sync, Prune
+und Self-Heal:
+
+```bash
+kubectl apply -n argocd -f argocd/apps/root.yaml
+```
+
 Der eingebaute `admin` ist aus; Konten und ihre Rollen stehen in
 `argocd/values.yaml`. Single Sign-on mit Entra folgt später.
 
@@ -71,6 +76,5 @@ Der eingebaute `admin` ist aus; Konten und ihre Rollen stehen in
 
 ## Stand
 
-Die Manifeste von `cars-ui`, `cars-bff` und `cars-master` in `k8s/base`
-werden von Hand angewendet. ArgoCD ist installiert, synchronisiert aber
-noch keine Anwendung.
+ArgoCD synchronisiert `cars-ui`, `cars-bff` und `cars-master` aus ihren
+Charts in den Namespace `demo`. Nichts wird mehr von Hand angewendet.

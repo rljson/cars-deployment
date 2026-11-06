@@ -9,7 +9,9 @@ found in the LICENSE file in the root of this package.
 # argocd
 
 ArgoCD in the namespace `argocd`, installed by Helm. `apps` holds the app
-of apps.
+of apps: `root.yaml`, applied once with
+`kubectl apply -n argocd -f apps/root.yaml`, syncs every other application
+in `apps`.
 
 | File              | Purpose                                                       |
 | ----------------- | ------------------------------------------------------------- |

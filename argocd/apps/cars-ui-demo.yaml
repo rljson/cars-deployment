@@ -1,0 +1,35 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+# cars-ui in the environment demo, from charts/cars-ui of main.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cars-ui-demo
+  namespace: argocd
+  # Deleting the application deletes its workload too.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rljson/cars-deployment.git
+    targetRevision: main
+    path: charts/cars-ui
+    helm:
+      releaseName: cars-ui
+      # The last one wins.
+      valueFiles:
+        - values.yaml
+        - demo-values.yaml
+        - image-tag.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -7,13 +7,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cars-bff
+  name: {{ .Chart.Name }}
   labels:
-    app: cars-bff
+    {{- include "workload.labels" . | nindent 4 }}
 spec:
   selector:
-    app: cars-bff
+    app: {{ .Chart.Name }}
   ports:
     - name: http
-      port: 3000
+      port: {{ .Values.servicePort }}
       targetPort: http
