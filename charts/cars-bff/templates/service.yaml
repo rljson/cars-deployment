@@ -7,13 +7,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cars-ui
+  name: {{ .Chart.Name }}
   labels:
-    app: cars-ui
+    {{- include "workload.labels" . | nindent 4 }}
 spec:
   selector:
-    app: cars-ui
+    app: {{ .Chart.Name }}
   ports:
     - name: http
-      port: 80
+      port: {{ .Values.servicePort }}
       targetPort: http

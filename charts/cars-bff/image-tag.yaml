@@ -1,0 +1,11 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+# The image of cars-bff that runs; changed by pull request once
+# az acr build pushed it. Read last, so it wins.
+
+image:
+  tag: 0.0.1-b3f83a2

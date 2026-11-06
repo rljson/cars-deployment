@@ -1,0 +1,35 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+# cars-bff in the environment demo, from charts/cars-bff of main.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cars-bff-demo
+  namespace: argocd
+  # Deleting the application deletes its workload too.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rljson/cars-deployment.git
+    targetRevision: main
+    path: charts/cars-bff
+    helm:
+      releaseName: cars-bff
+      # The last one wins.
+      valueFiles:
+        - values.yaml
+        - demo-values.yaml
+        - image-tag.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

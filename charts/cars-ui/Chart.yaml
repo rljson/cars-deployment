@@ -1,0 +1,11 @@
+# @license
+# Copyright (c) rljson
+#
+# Use of this source code is governed by terms that can be
+# found in the LICENSE file in the root of this package.
+
+apiVersion: v2
+name: cars-ui
+description: The page of cars, served by nginx; forwards /api to cars-bff.
+type: application
+version: 0.1.0
