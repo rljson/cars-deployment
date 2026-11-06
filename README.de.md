@@ -49,6 +49,21 @@ Merge synchronisiert ArgoCD ihn in den Cluster.
 az acr build --registry <registry> --image <workload>:<tag> .
 ```
 
+### ArgoCD
+
+ArgoCD läuft im Namespace `argocd`. Installieren oder aktualisieren,
+das Passwort eines persönlichen Kontos setzen und die Oberfläche auf
+<https://localhost:8443> öffnen:
+
+```bash
+argocd/install.sh
+argocd/set-password.sh <konto>
+argocd/ui.sh
+```
+
+Der eingebaute `admin` ist aus; Konten und ihre Rollen stehen in
+`argocd/values.yaml`. Single Sign-on mit Entra folgt später.
+
 ## Grenzen
 
 - Keine CI: ein Betreiber baut Images und ändert Tags von Hand
@@ -56,4 +71,6 @@ az acr build --registry <registry> --image <workload>:<tag> .
 
 ## Stand
 
-Nur die Struktur; noch ist kein Workload beschrieben.
+Die Manifeste von `cars-ui`, `cars-bff` und `cars-master` in `k8s/base`
+werden von Hand angewendet. ArgoCD ist installiert, synchronisiert aber
+noch keine Anwendung.

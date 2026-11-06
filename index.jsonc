@@ -15,7 +15,7 @@
   "domain": [
     "Kubernetes workloads cars-ui, cars-bff and cars-master in namespace demo",
     "Helm charts, value files values.yaml → demo-values.yaml → image-tag.yaml",
-    "ArgoCD app of apps, auto-sync from git"
+    "ArgoCD by Helm in namespace argocd, personal accounts, app of apps, auto-sync from git"
   ],
 
   // The repos this one depends on and the repos depending on it.
