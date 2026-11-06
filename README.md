@@ -49,6 +49,21 @@ syncs it to the cluster.
 az acr build --registry <registry> --image <workload>:<tag> .
 ```
 
+### ArgoCD
+
+ArgoCD runs in the namespace `argocd`. Install or upgrade it, set the
+password of a personal account and open the UI on
+<https://localhost:8443>:
+
+```bash
+argocd/install.sh
+argocd/set-password.sh <account>
+argocd/ui.sh
+```
+
+The built-in `admin` is off; accounts and their roles are in
+`argocd/values.yaml`. Single sign-on with Entra follows later.
+
 ## Limitations
 
 - No CI: an operator builds images and changes tags by hand
@@ -56,4 +71,5 @@ az acr build --registry <registry> --image <workload>:<tag> .
 
 ## Status
 
-Structure only; no workload is described yet.
+The manifests of `cars-ui`, `cars-bff` and `cars-master` in `k8s/base`
+are applied by hand. ArgoCD is installed, but syncs no application yet.
