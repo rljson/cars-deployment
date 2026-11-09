@@ -8,4 +8,4 @@
 # az acr build pushed it. Read last, so it wins.
 
 image:
-  tag: 0.0.1-b3f83a2
+  tag: 0.0.1-b3f83a2-r1
