@@ -31,4 +31,4 @@ Stufe (`<side>-<service>-<stage>.bicepparam`) und ein Node.js-Skript
 ## Grenzen
 
 - Keine CI: ein Betreiber rollt von Hand aus
-- Nichts ist ausgerollt, bis die Stufen `dev`, `stage` und `prod` bestehen
+- Nichts ist ausgerollt, bis die Stufen `dev`, `test` und `prod` bestehen

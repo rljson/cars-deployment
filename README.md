@@ -31,4 +31,4 @@ follow.
 ## Limitations
 
 - No CI: an operator deploys by hand
-- Nothing is deployed until the stages `dev`, `stage` and `prod` exist
+- Nothing is deployed until the stages `dev`, `test` and `prod` exist
